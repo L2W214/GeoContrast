@@ -145,11 +145,6 @@ class OursModel(nn.Module):
         self.up_sample2 = BasicDeconvolutionBlock(cs[6], cs[6], ks=4, stride=4, D=self.D)
         self.up_sample3 = BasicDeconvolutionBlock(cs[7], cs[7], ks=2, stride=2, D=self.D)
 
-        self.squeeze1 = ME.MinkowskiConvolution(cs[5], 4, kernel_size=1, stride=1, dimension=self.D)
-        self.squeeze2 = ME.MinkowskiConvolution(cs[6], 4, kernel_size=1, stride=1, dimension=self.D)
-        self.squeeze3 = ME.MinkowskiConvolution(cs[7], 4, kernel_size=1, stride=1, dimension=self.D)
-        self.squeeze4 = ME.MinkowskiConvolution(cs[8], 4, kernel_size=1, stride=1, dimension=self.D)
-
         self.up1 = nn.ModuleList([
             BasicDeconvolutionBlock(cs[4], cs[5], ks=2, stride=2, D=self.D),
             nn.Sequential(ResidualBlock(cs[5] + cs[3], cs[5], ks=3, stride=1, dilation=1, D=self.D),
